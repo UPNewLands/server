@@ -1,0 +1,13 @@
+*.DS_Store
+*.tmp
+
+node_modules/
+
+
+package-lock.json
+
+dist/
+logs/
+config/
+config/config.json
+config/config.json
