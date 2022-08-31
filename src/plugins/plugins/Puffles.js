@@ -29,8 +29,7 @@ export default class Puffles extends Plugin {
         } else if (user.lastPuffle && ((new Date).getTime() - user.lastPuffle < 60000 * 5)) {
             return user.send('error', { error: 'You need to wait 5 minutes since buying your last puffle.' })
         } else if (cost > user.data.coins) {
-            user.send('error', { error: 'You need more coins.' })
-            return;
+            return user.send('error', { error: 'You need more coins.' })
         } else if (name.length > 8) {
             return user.send('error', { error: 'Puffle name can\'t be greater than 8 chars.' })
         } else if (name.length <= 2) {
