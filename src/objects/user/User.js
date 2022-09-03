@@ -52,7 +52,8 @@ export default class User {
             frame: this.frame,
             rank: this.data.rank,
             joinTime: this.data.joinTime,
-            puffle: this.data.walking
+            puffle: this.data.walking,
+            username_approved: this.data.username_approved,
         }
     }
 
