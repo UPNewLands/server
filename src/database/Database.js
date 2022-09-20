@@ -149,6 +149,18 @@ export default class Database {
         })
     }
 
+    async addCoins(userID, coins) {
+        let user = await this.getUserById(userID)
+
+        this.users.update({
+            coins: parseInt(user.dataValues.coins) + parseInt(coins)
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+
     async getFurnitureInventory(userId) {
         return await this.findAll('furnitureInventories', {
             where: { userId: userId },

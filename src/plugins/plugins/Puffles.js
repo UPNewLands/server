@@ -15,8 +15,11 @@ export default class Puffles extends Plugin {
             'get_puffle_count': this.getPuffleCount,
             'puffle_dig' : this.PuffleDig,   
             'play_puffle_anim': this.sendPuffleAnim,
-             
+            'puffle_timeout': this.timeout,
         }
+
+        this.clothing = [3028,232,412,112,184,1056,6012,118,774,366,103,498,469,1082,5196,790,4039,326,105,122,5080,111]
+        this.furniture = [305,313,504,506,500,503,501,507,505,502,616,542,340,150,149,369,370,300]
     }
 
     getRndInteger(min, max) {
@@ -28,29 +31,35 @@ export default class Puffles extends Plugin {
     }
 
 
-    async PuffleDig(args, user) {
-        if (!this.clothing && this.furniture) {
-            this.clothing = [3028,232,412,112,184,1056,6012,118,774,366,103,498,469,1082,5196,790,4039,326,105,122,5080,111]
-            this.furniture = [305,313,504,506,500,503,501,507,505,502,616,542,340,150,149,369,370,300]
+    async timeout(args,user) {
+        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffleDig < 60000 * 2)) {
+            return user.send("puffle_timeout", {timeout:false})
         }
-        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffle < 60000 * 2)) {
-            return // Returns if puffle digging 
-        } // else if (this.prob(0.75)) {
-        //     return // Return when the puffle digging fails
-        // }
+        return user.send("puffle_timeout", {timeout:true})
+    }
 
-        let coins = this.getRndInteger(200,1000)
-        if (this.prob(0.25)) {
-            if (this.prob(.5)) {
-                let items = this.clothing[Math.floor(Math.random()*this.clothing.length)]
-                return user.send("puffle_digging", {type: "clothes", coins: coins, item: items})
-            } else {
-                let items = this.furniture[Math.floor(Math.random()*this.furniture.length)]
-                return user.send("puffle_digging", {type: "furniture", coins: coins, item: items})
-            }
-        } else {
-            return user.send("puffle_digging", {type: "coins", coins: coins})
+    async PuffleDig(args, user) {
+        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffleDig < 60000 * 2)) {
+            return 
         }
+
+        user.lastPuffleDig = (new Date).getTime()
+
+        let coins = this.getRndInteger(100,1000)
+        await this.db.addCoins(args.id, coins)
+        return user.send("puffle_dig", {type: "coins", coins: coins})
+
+        // if (this.prob(0.25)) {
+        //     if (this.prob(.5)) {
+        //         let items = this.clothing[Math.floor(Math.random()*this.clothing.length)]
+        //         return user.send("puffle_digging", {type: "clothes", coins: coins, item: items})
+        //     } else {
+        //         let items = this.furniture[Math.floor(Math.random()*this.furniture.length)]
+        //         return user.send("puffle_digging", {type: "furniture", coins: coins, item: items})
+        //     }
+        // } else {
+        //     return user.send("puffle_digging", {type: "coins", coins: coins})
+        // }
     }
 
     async adoptPuffle(args, user) {
