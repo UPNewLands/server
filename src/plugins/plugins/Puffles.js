@@ -12,7 +12,44 @@ export default class Puffles extends Plugin {
             'stop_walking': this.stopWalking,
             'get_puffle_color': this.getPuffleColor,
             'walk_puffle': this.walkPuffle,
-            'get_puffle_count': this.getPuffleCount
+            'get_puffle_count': this.getPuffleCount,
+            'puffle_dig' : this.PuffleDig,   
+            'play_puffle_anim': this.sendPuffleAnim,
+             
+        }
+    }
+
+    getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    prob(n) {
+        return !!n && Math.random() <= n;
+    }
+
+
+    async PuffleDig(args, user) {
+        if (!this.clothing && this.furniture) {
+            this.clothing = [3028,232,412,112,184,1056,6012,118,774,366,103,498,469,1082,5196,790,4039,326,105,122,5080,111]
+            this.furniture = [305,313,504,506,500,503,501,507,505,502,616,542,340,150,149,369,370,300]
+        }
+        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffle < 60000 * 2)) {
+            return // Returns if puffle digging 
+        } // else if (this.prob(0.75)) {
+        //     return // Return when the puffle digging fails
+        // }
+
+        let coins = this.getRndInteger(200,1000)
+        if (this.prob(0.25)) {
+            if (this.prob(.5)) {
+                let items = this.clothing[Math.floor(Math.random()*this.clothing.length)]
+                return user.send("puffle_digging", {type: "clothes", coins: coins, item: items})
+            } else {
+                let items = this.furniture[Math.floor(Math.random()*this.furniture.length)]
+                return user.send("puffle_digging", {type: "furniture", coins: coins, item: items})
+            }
+        } else {
+            return user.send("puffle_digging", {type: "coins", coins: coins})
         }
     }
 
@@ -125,5 +162,9 @@ export default class Puffles extends Plugin {
                 count: puffleCount
             })
         }
+    }
+
+    async sendPuffleAnim(args, user) {
+        return user.send("play_puffle_anim", {id:args.id, anim: args.anim})
     }
 }
