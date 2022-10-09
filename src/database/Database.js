@@ -254,6 +254,16 @@ export default class Database {
         return puffle
     }
 
+    async getPostcards(userId) {
+        let postcards = await this.findAll('userPostcards', {
+            where: {
+                userId: userId
+            },
+            attributes: ['id', 'userId', 'sender', 'time_sent', 'details']
+        })
+        return postcards
+    }
+
     /*========== Helper functions ==========*/
 
     findOne(table, options = {}, emptyReturn = null, callback = null) {
