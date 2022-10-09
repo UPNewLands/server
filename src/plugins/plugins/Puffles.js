@@ -174,6 +174,6 @@ export default class Puffles extends Plugin {
     }
 
     async sendPuffleAnim(args, user) {
-        return user.send("play_puffle_anim", {id:args.id, anim: args.anim})
+        return user.room.send(user, 'play_puffle_anim', {id:user.data.id, anim: args.anim}) 
     }
 }
