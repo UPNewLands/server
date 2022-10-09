@@ -10,6 +10,7 @@ export default class Plugin {
         this.crumbs = handler.crumbs
         this.rooms = handler.rooms
         this.openIgloos = handler.openIgloos
+        this.discord = handler.discord
     }
 
     get plugins() {
