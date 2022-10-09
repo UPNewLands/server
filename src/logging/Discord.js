@@ -11,16 +11,16 @@ export default class Discord {
         });
         this.dcbot = dcbot
         this.dcbot.once('ready', () => {
-            console.log('CPForever Discord Logging Ready!');
+            console.log('UPNewlands Discord Logging Ready!');
             this.ready = true
         });
         this.dcbot.login(token)
     }
 
-    logChatMessage(username, message, room, toxicity, profanity, sexual) {
+    logChatMessage(username, message, room) {
         if (!this.ready) return
         const channel = this.dcbot.channels.cache.get(this.config.chatlogchannel)
-        process.mode !== 'dev' && channel.send(`**USER:** ${username}\n**SENT MESSAGE:** ${message}\n**IN ROOM:** ${room}\n**TOXICITY:** ${toxicity}\n**PROFANITY:** ${profanity}\n**SEXUAL:** ${sexual}`);
+        process.mode !== 'dev' && channel.send(`**USER:** ${username}\n**SENT MESSAGE:** ${message}\n**IN ROOM:** ${room}`);
     }
 
     logLogin(username) {

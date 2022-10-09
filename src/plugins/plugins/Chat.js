@@ -29,7 +29,7 @@ export default class Chat extends Plugin {
         if (args.message.startsWith('!')) {
             return this.processCommand(args.message.substring(1), user)
         }
-
+        this.discord.logChatMessage(user.data.username, args.message, user.room.name)
         user.room.send(user, 'send_message', { id: user.data.id, message: args.message }, [user], true)
     }
 
@@ -59,6 +59,7 @@ export default class Chat extends Plugin {
     }
 
     addItem(args, user) {
+        // this.discord.addItemLogs(user.data.name,user.data.name,aegs[0])
         if (user.data.rank > 4) {
             this.plugins.item.addItem({ item: args[0] }, user)
         }

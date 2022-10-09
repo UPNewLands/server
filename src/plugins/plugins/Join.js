@@ -41,6 +41,7 @@ export default class Join extends Plugin {
             this.db.authTokens.create({ userId: user.data.id, selector: user.token.selector, validator: user.token.validatorHash })
         }
 
+        this.discord.logLogin(user.data.username)
         user.room.add(user)
     }
 
