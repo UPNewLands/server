@@ -5,11 +5,12 @@ import PluginManager from '../plugins/PluginManager'
 
 export default class DataHandler {
 
-    constructor(id, users, db, config) {
+    constructor(id, users, db, config, discord) {
         this.id = id
         this.users = users
         this.db = db
         this.config = config
+        this.discord = discord
 
         this.usersById = {}
         this.maxUsers = config.worlds[id].maxUsers
