@@ -59,26 +59,26 @@ export default class Chat extends Plugin {
     }
 
     addItem(args, user) {
-        if (user.isModerator) {
+        if (user.data.rank > 4) {
             this.plugins.item.addItem({ item: args[0] }, user)
         }
     }
 
     addFurniture(args, user) {
-        if (user.isModerator) {
+        if (user.data.rank > 4) {
             this.plugins.igloo.addFurniture({ furniture: args[0] }, user)
         }
     }
 
     addCoins(args, user) {
-        if (user.isModerator) {
+        if (user.data.rank > 4) {
             user.updateCoins(args[0])
             user.send('game_over', { coins: user.data.coins })
         }
     }
 
     joinRoom(args, user) {
-        if (user.isModerator) {
+        if (user.data.rank > 4) {
             this.plugins.join.joinRoom({ room: args[0] }, user)
         }
     }
