@@ -28,12 +28,7 @@ export default class Panel extends Plugin {
         }
 
         let users = await this.db.getUnverifedUsers()
-
-        if (users) {
-            user.send('get_unverified_users', {
-                users: users
-            })
-        }
+        user.send('get_unverified_users', {users: users})
     }
 
     async verifyUser(args, user) {
