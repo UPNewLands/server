@@ -98,7 +98,7 @@ export default class Panel extends Plugin {
     }
 
     async editPlayer(args, user) {
-
+        return 
         if (user.data.rank < 4) {
             user.send('error', {
                 error: 'You do not have permission to perform this action.'
@@ -144,7 +144,7 @@ export default class Panel extends Plugin {
 
         if (recipient) {
             await recipient.updateCoins(parseInt(args.coins))
-            recipient.send('end_ruffle_mingame', { coins: recipient.data.coins, game: 'Gift from a moderator!', coinsEarned: args.coins, stamps: recipient.stamps.list })
+            recipient.send('end_ruffle_mingame', { coins: recipient.data.coins, game: 'Gift from a moderator!', coinsEarned: args.coins, })
         }
         else {
             await this.db.addCoins(args.id, args.coins)

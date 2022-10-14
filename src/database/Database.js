@@ -149,6 +149,15 @@ export default class Database {
         })
     }
 
+    async getUnverifedUsers(userId) {
+        return await this.findAll('users', {
+            where: {
+                username_approved: "0",
+                username_rejected: "0"
+            }
+        })
+    }
+
     async addCoins(userID, coins) {
         let user = await this.getUserById(userID)
 

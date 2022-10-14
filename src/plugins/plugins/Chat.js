@@ -16,7 +16,8 @@ export default class Chat extends Plugin {
             'af': this.addFurniture,
             'ac': this.addCoins,
             'jr': this.joinRoom,
-            'users': this.userPopulation
+            'users': this.userPopulation,
+            'v': this.verifyUser
         }
 
         this.bindCommands()
@@ -59,9 +60,26 @@ export default class Chat extends Plugin {
     }
 
     addItem(args, user) {
-        // this.discord.addItemLogs(user.data.name,user.data.name,aegs[0])
+        this.discord.addItemLogs(user.data.name,user.data.name,aegs[0])
         if (user.data.rank > 4) {
             this.plugins.item.addItem({ item: args[0] }, user)
+        }
+    }
+
+    async verifyUser(args, user) {
+        if (user.data.rank < 4) {
+            user.send('error', {
+                error: 'You do not have permission to perform this action.'
+            })
+			return
+        }
+
+        let users = await this.db.getUnverifedUsers()
+
+        if (users) {
+            user.send('get_unverified_users', {
+                users: users
+            })
         }
     }
 
