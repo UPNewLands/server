@@ -30,7 +30,7 @@ export default class User {
         this.authenticated = false
         this.token = {}
 
-        this.setPuffleDecay()
+        // this.setPuffleDecay()
     }
 
     get string() {
