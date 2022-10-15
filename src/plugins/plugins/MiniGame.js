@@ -40,20 +40,31 @@ export default class MiniGame extends Plugin {
         user.send('game_over', { coins: user.data.coins })
     }
 	
-	endRuffleMinigame(args){
-		this.client.coins = args.coins
-		let prompt = this.world.game.scene.getScene('InterfaceController').prompt
-		if (args.coinsEarned == null){
-			args.coinsEarned = 0
-		}
-        prompt.showCoins(args.game, args.coinsEarned)
-	}
-	
-	checkLegit(args) {
-		let ruffleplayer = document.getElementsByTagName("ruffle-player")[0]
-		this.network.send('check_legit', { coins: ruffleplayer.checkCoins(), game: args.game })
-		ruffleplayer.pause()
-	}
+    endRuffleMinigame(args, user) {
+        if (!args.coins || args.coins < 0) { return }
+        user.send('check_legit', {game: args.game, coinsEarned: args.coins})
+        user.pending = true
+        user.pendingCoins = args.coins
+    }
+
+    async checkLegit(args, user) {
+        if (!user.pending || !args.coins || args.coins < 0) { return }
+        let payoutFrequency = args.coins * 50
+        if (user.lastPayout > ((new Date()).getTime() - payoutFrequency)) {
+            return user.send('error', { error: 'You have earned too many coins too quickly! These coins have not been added as we fear they may have been cheated.' })
+        }
+        if (user.pending && user.pendingCoins === args.coins && args.coins < 15000) {
+            user.pending = false
+            user.pendingCoins = 0
+            user.lastPayout = (new Date()).getTime()
+            user.updateCoins(args.coins)
+            user.send('end_ruffle_mingame', { coins: user.data.coins, game: args.game, coinsEarned: args.coins })
+
+        }
+        else {
+            user.send('error', { error: 'There was an error adding your coins' })
+        }
+    }
 
     initFour(args) {
         this.interface.main.findFour.init(args.users, args.turn)
