@@ -20,7 +20,7 @@ export default class OpenIgloos {
             } else {
                 username =  "P" + user.data.id
             }
-            this.list.push({ id: user.data.id, username: user.data.username })
+            this.list.push({ id: user.data.id, username: username })
         }
     }
 
