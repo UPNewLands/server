@@ -89,6 +89,14 @@ export default class Users extends Sequelize.Model {
                     type: DataTypes.INTEGER(1),
                     allowNull: false
                 },
+                lastReport: {
+                    type: DataTypes.INTEGER(20),
+                    allowNull: false
+                },
+                lastDigging: {
+                    type: DataTypes.INTEGER(20),
+                    allowNull: false
+                },
             },
             { sequelize, timestamps: false, tableName: 'users' }
         )

@@ -32,18 +32,20 @@ export default class Puffles extends Plugin {
 
 
     async timeout(args,user) {
-        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffleDig < 60000 * 2)) {
+        if (user.data.lastDigging && ((new Date).getTime() - user.data.lastDigging < 60000 * 2)) {
             return user.send("puffle_timeout", {timeout:false})
         }
         return user.send("puffle_timeout", {timeout:true})
     }
 
     async PuffleDig(args, user) {
-        if (user.lastPuffleDig && ((new Date).getTime() - user.lastPuffleDig < 60000 * 2)) {
-            return 
+        if (user.data.lastDigging && ((new Date).getTime() - user.data.lastDigging < 60000 * 2)) {
+            return user.send("puffle_timeout", {timeout:true})
         }
 
-        user.lastPuffleDig = (new Date).getTime()
+        let res = await this.db.updatelastDig(user.data.id)
+        user.data.lastDigging = res;
+
 
         let coins = this.getRndInteger(100,1000)
         await this.db.addCoins(args.id, coins)
