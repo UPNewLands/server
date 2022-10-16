@@ -1,4 +1,4 @@
-import { Client, Intents } from 'discord.js'
+import { Client, Intents, GatewayIntentBits} from 'discord.js'
 
 export default class Discord {
 
@@ -7,7 +7,7 @@ export default class Discord {
         this.config = config
         const token = config.discordbottoken
         const dcbot = new Client({
-            intents: [Intents.FLAGS.GUILDS]
+            intents:    GatewayIntentBits.Guilds,
         });
         this.dcbot = dcbot
         this.dcbot.once('ready', () => {

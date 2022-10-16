@@ -82,11 +82,9 @@ export default class DataHandler {
             user.buddy.sendOffline()
         }
 
-        if (user.data && user.data.id && user.data.id in this.usersById) {
-            delete this.usersById[user.data.id]
+        if (user.data && user.data.id) {
+            this.openIgloos.remove(user)
         }
-
-        this.openIgloos.remove(user)
 
         delete this.users[user.socket.id]
 
