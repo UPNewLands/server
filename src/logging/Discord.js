@@ -7,7 +7,7 @@ export default class Discord {
         this.config = config
         const token = config.discordbottoken
         const dcbot = new Client({
-            intents:    GatewayIntentBits.Guilds,
+            intents:    intents: [Intents.FLAGS.GUILDS]
         });
         this.dcbot = dcbot
         this.dcbot.once('ready', () => {
