@@ -48,7 +48,7 @@ export default class Puffles extends Plugin {
 
 
         let coins = this.getRndInteger(100,1000)
-        await this.db.addCoins(args.id, coins)
+        user.updateCoins(coins)
         return user.send("puffle_dig", {type: "coins", coins: coins})
 
         // if (this.prob(0.25)) {
