@@ -170,7 +170,64 @@ export default class Database {
 
         return time
     }
+    
+    async searchForUsers(username) {
 
+        let exactMatch = await this.findOne('users', {
+            where: {
+                username: username
+            }
+        })
+
+        let closeMatch = await this.findAll('users', {
+            where: {
+                username: {
+                    [Op.like]: '%' + username + '%'
+                }
+            }
+        })
+
+        if (!exactMatch) {
+            return closeMatch
+        } else {
+            for (var i = closeMatch.length - 1; i >= 0; i--) {
+                if (closeMatch[i].username === exactMatch.username) {
+                    closeMatch.splice(i, 1);
+                }
+            }
+            closeMatch.unshift(exactMatch)
+            return closeMatch
+        }
+    }
+
+    async addItem(userID, item) {
+        var inventory = await this.getInventory(userID)
+        var checkItem = await this.findOne('items', {
+            where: {
+                id: item
+            }
+        })
+
+        // A user having 2 of the same items would probably cause some issues
+
+        if (inventory.includes(item)) {
+            return
+        }
+
+        // If an item that doesn't exist is added to a user, the game will crash on load
+
+        if (!checkItem) {
+            return
+        }
+
+        this.inventories.create({
+            userId: userID,
+            itemId: item
+        })
+
+        return true
+
+    }
     async updatelastDig(userID) {
         let time = (new Date).getTime()
         this.users.update({
@@ -232,6 +289,33 @@ export default class Database {
 
     async getWorldPopulations() {
         return await this.getCrumb('worlds')
+    }
+
+    async ban(userId, banDuration, modId) {
+        this.bans.create({
+            userId: userId,
+            expires: banDuration,
+            moderatorId: modId
+        })
+    }
+
+    async changeUsername(userId, newUsername) {
+
+        if (newUsername.length < 4) return false
+        if (newUsername.length > 16) return false
+
+        let existingUser = await this.getUserByUsername(newUsername)
+        if (existingUser) return false
+
+        this.users.update({
+            username: newUsername
+        }, {
+            where: {
+                id: userId
+            }
+        })
+
+        return true
     }
 
     async getPuffles(userId) {

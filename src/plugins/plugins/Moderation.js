@@ -47,6 +47,8 @@ export default class Moderation extends Plugin {
     }
 
     stealthMode(args, user) {
+
+        return
         if (!user.isModerator) {
             return
         }

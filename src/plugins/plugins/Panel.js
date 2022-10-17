@@ -93,7 +93,6 @@ export default class Panel extends Plugin {
     }
 
     async editPlayer(args, user) {
-        return 
         if (user.data.rank < 4) {
             user.send('error', {
                 error: 'You do not have permission to perform this action.'
@@ -130,10 +129,6 @@ export default class Panel extends Plugin {
 
         let userName = (await this.db.getUserById(args.id)).username
 
-        user.send('error', {
-            error: 'Coins added successfully.'
-        })
-
         let recipient = this.usersById[args.id]
 
 
@@ -167,20 +162,12 @@ export default class Panel extends Plugin {
 
         if (recipient) {
             let item = this.crumbs.items[args.item]
+            if (item === undefined) {return;}
             recipient.inventory.add(args.item)
             recipient.send('add_item', { item: args.item, name: args.itemName, slot: this.crumbs.items.slots[item.type - 1], coins: recipient.data.coins })
-            user.send('error', {
-                error: 'Item added successfully.'
-            })
         }
         else {
-            let item = this.db.addItem(args.id, args.item)
-
-            if (item) {
-                user.send('error', {
-                    error: 'Item added successfully.'
-                })
-            }
+           this.db.addItem(args.id, args.item)
         }
     }
 
