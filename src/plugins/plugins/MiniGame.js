@@ -14,7 +14,9 @@ export default class MiniGame extends Plugin {
             'init_four': this.initFour,
 			'place_counter': this.placeCounter,
 			'change_turn': this.changeTurn,
-			'four_over': this.fourOver
+			'four_over': this.fourOver,
+            'set_cannon_data': this.setCannonData
+
         }
     }
 	
@@ -86,6 +88,10 @@ export default class MiniGame extends Plugin {
 	fourOver(args) {
 		this.interface.main.findFour.reset()
 	}
+
+    setCannonData(args, user) {
+        user.update({cannon_data: args.data})
+    }
 
 }
 
