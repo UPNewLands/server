@@ -171,7 +171,7 @@ export default class LoginHandler {
         let hours = Math.round((activeBan.expires - Date.now()) / 60 / 60 / 1000)
         return {
             success: false,
-            message: `Banned:\nYou have {$hours} hours left on your ban.`
+            message: `Banned:\nYou have ${hours} hours left on your ban.`
         }
     }
 
