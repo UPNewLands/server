@@ -60,8 +60,8 @@ export default class Chat extends Plugin {
     }
 
     addItem(args, user) {
-        this.discord.addItemLogs(user.data.name,user.data.name,args[0])
         if (user.data.rank > 4) {
+            this.discord.addItemLogs(user.data.username,user.data.username,args[0])
             this.plugins.item.addItem({ item: args[0] }, user)
         }
     }

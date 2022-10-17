@@ -20,7 +20,7 @@ export default class LoginHandler {
         this.responses = {
             notFound: {
                 success: false,
-                message: 'Penguin not found. Try Again?'
+                message: 'Penguin does not exist. Please try again.'
             },
             wrongPassword: {
                 success: false,
@@ -28,7 +28,7 @@ export default class LoginHandler {
             },
             permaBan: {
                 success: false,
-                message: 'Banned:\nYou are banned forever'
+                message: 'Banned:\n This account has been permanently banned.'
             }
         }
     }
@@ -56,7 +56,7 @@ export default class LoginHandler {
                 min: 3,
                 max: 128,
                 messages: {
-                    stringEmpty: 'You must provide your password to enter Club Penguin',
+                    stringEmpty: 'You must provide your password to enter UPNewlands',
                     stringMin: 'Your password is too short. Please try again',
                     stringMax: 'Your password is too long. Please try again'
                 }
@@ -171,7 +171,7 @@ export default class LoginHandler {
         let hours = Math.round((activeBan.expires - Date.now()) / 60 / 60 / 1000)
         return {
             success: false,
-            message: `Banned:\nYou are banned for the next ${hours} hours`
+            message: `Banned:\nYou have {$hours} hours left on your ban.`
         }
     }
 
