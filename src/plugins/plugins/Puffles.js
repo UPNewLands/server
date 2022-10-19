@@ -88,7 +88,7 @@ export default class Puffles extends Plugin {
         user.lastPuffle = (new Date).getTime()
         let puffle = await this.db.adoptPuffle(user.data.id, type, name)
 
-        user.send('adopt_puffle', { puffle: puffle.id, coins: user.data.coins })
+        user.send('adopt_puffle', { puffle: puffle.id, coins: user.data.coins, color: puffle.color })
         // let postcard = await this.db.userPostcards.create({ userId: user.data.id, id: 111, sender: "Club Penguin Forever", details: name })
         // if (postcard) {
         //     user.postcards = await this.db.getPostcards(user.data.id)
@@ -140,7 +140,7 @@ export default class Puffles extends Plugin {
         if (user.data.puffle !== 0) {
             user.data.walking = 0
             user.update({ walking: user.data.walking})
-            user.room.send(user, 'stop_walking', {user: user.data.id}, [])
+            user.room.send(user, 'stop_walking', {user: user.data.id, puffle: 0}, [])
         }
         if (args.puffle !== 0){
             user.data.walking = args.puffle
