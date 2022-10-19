@@ -17,7 +17,9 @@ export default class Chat extends Plugin {
             'ac': this.addCoins,
             'jr': this.joinRoom,
             'users': this.userPopulation,
-            'v': this.verifyUser
+            'v': this.verifyUser,
+            'ann': this.broadcast,
+
         }
 
         this.bindCommands()
@@ -106,4 +108,8 @@ export default class Chat extends Plugin {
         user.send('error', { error: `Users online: ${this.handler.population}` })
     }
 
+    broadcast(args, user) {
+        if (user.data.rank < 5) return
+        this.handler.broadcast(args.join(" "))
+    }
 }
