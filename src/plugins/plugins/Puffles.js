@@ -47,7 +47,7 @@ export default class Puffles extends Plugin {
         user.data.lastDigging = res;
 
 
-        let coins = this.getRndInteger(100,1000)
+        let coins = this.getRndInteger(25,150)
         user.updateCoins(coins)
         return user.send("puffle_dig", {type: "coins", coins: coins})
 
