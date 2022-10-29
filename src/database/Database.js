@@ -241,6 +241,47 @@ export default class Database {
         return time
     }
 
+    async candy1(userID) {
+        this.users.update({
+            candy1 : 1
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+
+    async candy2(userID) {
+        this.users.update({
+            candy2 : 1
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+
+    async candy3(userID) {
+        this.users.update({
+            candy3 : 1
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+
+    async candy4(userID) {
+        this.users.update({
+            candy4 : 1
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+
+
     async addCoins(userID, coins) {
         let user = await this.getUserById(userID)
 

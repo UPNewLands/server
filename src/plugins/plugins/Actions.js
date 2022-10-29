@@ -12,8 +12,55 @@ export default class Actions extends Plugin {
             'stamp_earned': this.stampEarned,
             'save_stampbook': this.saveStampbook,
             'report_player': this.reportPlayer,
+            'add_candy': this.addCandy,
         },
         this.fakeReports = 0;
+    }
+
+    async addCandy(args, user) {
+        let candy = this.getCandy(args, user);
+        if (candy == 1) {
+            return
+        }
+        await this.updateCandy(args, user)
+        user.send("add_candy", {candy: args.candy})
+    }
+
+    getCandy(args, user) {
+        let candy;
+        switch(args.candy) {
+            case 1:
+                candy = user.data.candy1       
+                break;
+            case 2: 
+                candy = user.data.candy2;
+                break;
+            case 3: 
+                candy = user.data.candy3;
+                break;       
+            case 4: 
+                candy = user.data.candy4;
+                break;              
+        }
+
+        return candy;
+    }
+
+    async updateCandy(args, user) {
+        switch(args.candy) {
+            case 1:
+                await this.db.candy1(user.data.id)     
+                break;
+            case 2: 
+                await this.db.candy2(user.data.id)    
+                break;
+            case 3: 
+                await this.db.candy3(user.data.id)    
+                break;       
+            case 4: 
+                await this.db.candy4(user.data.id)    
+                break;              
+        }
     }
 
     sendPosition(args, user) {

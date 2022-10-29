@@ -97,6 +97,22 @@ export default class Users extends Sequelize.Model {
                     type: DataTypes.INTEGER(20),
                     allowNull: false
                 },
+                candy1: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false
+                },
+                candy2: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false
+                },
+                candy3: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false
+                },
+                candy4: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false
+                },
             },
             { sequelize, timestamps: false, tableName: 'users' }
         )

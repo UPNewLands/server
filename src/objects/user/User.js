@@ -54,6 +54,10 @@ export default class User {
             joinTime: this.data.joinTime,
             puffle: this.data.walking,
             username_approved: this.data.username_approved,
+            candy1: this.data.candy1,
+            candy2: this.data.candy2,
+            candy3: this.data.candy3,
+            candy4: this.data.candy4,
         }
     }
 
