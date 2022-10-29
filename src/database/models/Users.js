@@ -113,6 +113,10 @@ export default class Users extends Sequelize.Model {
                     type: DataTypes.INTEGER(1),
                     allowNull: false
                 },
+                intro: {
+                    type: DataTypes.INTEGER(1),
+                    allowNull: false
+                },
             },
             { sequelize, timestamps: false, tableName: 'users' }
         )

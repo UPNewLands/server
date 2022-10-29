@@ -13,6 +13,7 @@ export default class Actions extends Plugin {
             'save_stampbook': this.saveStampbook,
             'report_player': this.reportPlayer,
             'add_candy': this.addCandy,
+            'addSeen': this.addSeen
         },
         this.fakeReports = 0;
     }
@@ -24,6 +25,11 @@ export default class Actions extends Plugin {
         }
         await this.updateCandy(args, user)
         user.send("add_candy", {candy: args.candy})
+    }
+
+    async addSeen(args, user) {
+        if(user.data.intro == 0)
+        await this.db.seenIntro(user.data.id)
     }
 
     getCandy(args, user) {

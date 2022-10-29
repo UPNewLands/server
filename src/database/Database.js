@@ -50,6 +50,17 @@ export default class Database {
         return items
     }
 
+    async seenIntro(userID) {
+        this.users.update({
+            intro : 1
+        }, {
+            where: {
+                id: userID
+            }
+        })
+    }
+    
+
     async getIgloos() {
         return await this.getCrumb('igloos')
     }

@@ -58,6 +58,7 @@ export default class User {
             candy2: this.data.candy2,
             candy3: this.data.candy3,
             candy4: this.data.candy4,
+            intro: this.data.intro,
         }
     }
 

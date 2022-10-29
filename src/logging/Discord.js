@@ -1,6 +1,6 @@
 import { Client, Intents, GatewayIntentBits} from 'discord.js'
 // import { report } from 'superagent'
-const { MessageEmbed, EmbedAssertions } = require("discord.js")
+const { EmbedBuilder, EmbedAssertions } = require("discord.js")
 
 export default class Discord {
 
@@ -9,7 +9,7 @@ export default class Discord {
         this.config = config
         const token = config.discordbottoken
         const dcbot = new Client({
-            intents: [Intents.FLAGS.GUILDS]
+            intents: GatewayIntentBits.Guilds
         });
         this.dcbot = dcbot
         this.dcbot.once('ready', () => {
@@ -35,7 +35,7 @@ export default class Discord {
 
         // Embed Builder 
 
-        const chatlog = new MessageEmbed()
+        const chatlog = new EmbedBuilder()
         .setTitle(`**Message Log 💬**`)
         .setDescription(`
         
@@ -78,7 +78,7 @@ export default class Discord {
 
         // Embed Builder
 
-        const loginnotification = new MessageEmbed()
+        const loginnotification = new EmbedBuilder()
         .setTitle(`**Account Log-In 🔐**`)
         .setDescription(`
         
@@ -118,7 +118,7 @@ export default class Discord {
 
         // Embed Builder
 
-        const kickeduser = new MessageEmbed()
+        const kickeduser = new EmbedBuilder()
         .setTitle(`**Moderation Log. 🍃 (KICK)**`)
         .setDescription(`
         
@@ -158,7 +158,7 @@ export default class Discord {
             + currentdate.getSeconds();
 
 
-             const banneduser = new MessageEmbed()
+             const banneduser = new EmbedBuilder()
             .setTitle(`**Moderation Log. 🍃 (BAN)**`)
             .setDescription(`
             
@@ -200,7 +200,7 @@ export default class Discord {
             + currentdate.getSeconds();
 
 
-             const itemGive = new MessageEmbed()
+             const itemGive = new EmbedBuilder()
             .setTitle(`**Staff added an item. 📔**`)
             .setDescription(`
             
@@ -243,7 +243,7 @@ export default class Discord {
             + currentdate.getSeconds();
 
 
-             const giveCoins = new MessageEmbed()
+             const giveCoins = new EmbedBuilder()
             .setTitle(`**Staff has added coins 💰**`)
             .setDescription(`
             
@@ -296,7 +296,7 @@ export default class Discord {
                 + currentdate.getSeconds();
     
     
-                 const newReport1 = new MessageEmbed()
+                 const newReport1 = new EmbedBuilder()
                  .setTitle(`**User report.**`)
                 .setDescription(`
                 
@@ -335,7 +335,7 @@ export default class Discord {
                 + currentdate.getSeconds();
     
     
-                 const newReport2 = new MessageEmbed()
+                 const newReport2 = new EmbedBuilder()
                 .setTitle(`**User report.**`)
                 .setDescription(`
                 
@@ -374,7 +374,7 @@ export default class Discord {
                 + currentdate.getSeconds();
     
     
-                 const newReport3 = new MessageEmbed()
+                 const newReport3 = new EmbedBuilder()
                 .setTitle(`**User report.**`)
                 .setDescription(`
                 
