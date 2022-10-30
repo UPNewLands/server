@@ -16,7 +16,7 @@ export default class Discord {
             console.log('UPNewlands Discord Logging Ready!');
             this.ready = true
         });
-        // this.dcbot.login(token)
+        this.dcbot.login(token)
     }
 
     logChatMessage(username, message, room) {

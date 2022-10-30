@@ -23,13 +23,12 @@ export default class Actions extends Plugin {
         if (candy == 1) {
             return
         }
-        await this.updateCandy(args, user)
-        user.send("add_candy", {candy: args.candy})
+        user = await this.updateCandy(args, user)
+        user.send("add_candy", {candy1: user.data.candy1, candy2: user.data.candy2, candy3: user.data.candy3, candy4: user.data.candy4, })
     }
 
     async addSeen(args, user) {
-        if(user.data.intro == 0)
-        await this.db.seenIntro(user.data.id)
+        if(user.data.intro == 0) {await this.db.seenIntro(user.data.id)}
     }
 
     getCandy(args, user) {
@@ -56,17 +55,22 @@ export default class Actions extends Plugin {
         switch(args.candy) {
             case 1:
                 await this.db.candy1(user.data.id)     
+                user.data.candy1 = 1;
                 break;
             case 2: 
                 await this.db.candy2(user.data.id)    
+                user.data.candy2 = 1;
                 break;
             case 3: 
-                await this.db.candy3(user.data.id)    
+                await this.db.candy3(user.data.id)   
+                user.data.candy3 = 1; 
                 break;       
             case 4: 
                 await this.db.candy4(user.data.id)    
+                user.data.candy4 = 1;
                 break;              
         }
+        return user;
     }
 
     sendPosition(args, user) {
