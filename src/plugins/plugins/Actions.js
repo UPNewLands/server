@@ -13,9 +13,23 @@ export default class Actions extends Plugin {
             'save_stampbook': this.saveStampbook,
             'report_player': this.reportPlayer,
             'add_candy': this.addCandy,
-            'addSeen': this.addSeen
+            'addSeen': this.addSeen,
+            'get_count': this.getCount,
+            'update_count': this.updateCount,
         },
         this.fakeReports = 0;
+    }
+
+    async getCount(args, user) {
+        let count = this.db.checkCount()
+        return user.send("update_count", {count: count})
+    }
+
+    async updateCount(args, user) {
+        let count = parseInt(await this.db.checkCount())
+        count += 1
+        this.db.updateCount(count)
+        return user.send("update_count", {count: count})        
     }
 
     async addCandy(args, user) {

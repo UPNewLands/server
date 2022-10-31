@@ -293,6 +293,28 @@ export default class Database {
     }
 
 
+    async checkCount() {
+        var count = await this.findOne('halloween', {
+            where: {
+                key: "count"
+            }
+        })
+        return count;
+    }
+
+
+    updateCount(updatedCount) {
+        this.party.update({
+            count: updatedCount
+        }, {
+            where: {
+                key: "halloween"
+            }
+        })
+
+    }
+
+
     async addCoins(userID, coins) {
         let user = await this.getUserById(userID)
 
