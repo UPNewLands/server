@@ -71,8 +71,8 @@ export default class Puffles extends Plugin {
         let cost = (await this.db.getPuffleCost(type)).dataValues.cost
         const puffles = await this.db.getPuffles(user.data.id)
 
-        if (puffles.length >= 8) {
-            user.send('error', { error: "You already have 8 puffles." })
+        if (puffles.length >= 15) {
+            user.send('error', { error: "You already have 15 puffles." })
             return
         } else if (user.lastPuffle && ((new Date).getTime() - user.lastPuffle < 60000 * 5)) {
             return user.send('error', { error: 'You need to wait 5 minutes since buying your last puffle.' })

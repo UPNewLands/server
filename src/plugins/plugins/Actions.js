@@ -21,14 +21,15 @@ export default class Actions extends Plugin {
     }
 
     async getCount(args, user) {
-        let count = this.db.checkCount()
-        return user.send("update_count", {count: count})
+        let count = await this.db.checkCount("halloween")
+        return user.send("update_count", {count: parseInt(count.count)})
     }
 
     async updateCount(args, user) {
-        let count = parseInt(await this.db.checkCount())
+        let count = await this.db.checkCount("halloween")
+        count = parseInt(count.count)
         count += 1
-        this.db.updateCount(count)
+        this.db.updateCount("halloween", count)
         return user.send("update_count", {count: count})        
     }
 

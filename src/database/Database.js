@@ -239,6 +239,7 @@ export default class Database {
         return true
 
     }
+
     async updatelastDig(userID) {
         let time = (new Date).getTime()
         this.users.update({
@@ -293,22 +294,23 @@ export default class Database {
     }
 
 
-    async checkCount() {
-        var count = await this.findOne('halloween', {
+    async checkCount(key) {
+        var count = await this.findOne('party', {
             where: {
-                key: "count"
-            }
+                key: key
+            },
+            attributes: ['count']
         })
         return count;
     }
 
 
-    updateCount(updatedCount) {
+    updateCount(key, updatedCount) {
         this.party.update({
             count: updatedCount
         }, {
             where: {
-                key: "halloween"
+                key: key
             }
         })
 
