@@ -53,6 +53,7 @@ export default class User {
             rank: this.data.rank,
             joinTime: this.data.joinTime,
             puffle: this.data.walking,
+            cannon_data: this.data.cannon_data,
             username_approved: this.data.username_approved,
             candy1: this.data.candy1,
             candy2: this.data.candy2,
